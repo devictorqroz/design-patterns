@@ -2,8 +2,17 @@ package com.devictor.adapter;
 
 import java.math.BigDecimal;
 
+// Adapter com herança
 
-public class Adapter_2 {
+// Vantagens:
+// Facilidade em criar um two-way
+// Não precisa instanciar um novo objeto
+
+// Desvantagens:
+// Falta de flexibilidade
+
+
+public class Adapter_3 {
 
     // Client
     // Adapter
@@ -13,7 +22,7 @@ public class Adapter_2 {
     // Client
     public static void main(String[] args) {
 
-        ProcessorPagamento2 credito = new MeuPagamentoCredito2();
+        MeuPagamentoCredito3 credito = new MeuPagamentoCredito3();
         credito.debitar(new BigDecimal("100"));
     }
 }
@@ -22,7 +31,7 @@ public class Adapter_2 {
 // --------------------------------------------------------------------------------
 
 // Target
-interface ProcessorPagamento2 {
+interface ProcessorPagamento3 {
 
     void debitar(BigDecimal valor);
 
@@ -33,19 +42,26 @@ interface ProcessorPagamento2 {
 
 // --------------------------------------------------------------------------------
 
-// Adapter
-class MeuPagamentoCredito2 implements ProcessorPagamento2 { // Você tem acesso. Uma classe sua.
+// Adapter - Two-way (Mão Dupla)
+// Você tem acesso. Uma classe sua.
+class MeuPagamentoCredito3 extends SdkPagamentoCredito3
+                            implements ProcessorPagamento3 {
 
-    SdkPagamentoCredito2 sdkPagamentoCredito2 = new SdkPagamentoCredito2();
+    // ...
 
     public void debitar(BigDecimal valor) {
-        sdkPagamentoCredito2.autorizar(valor);
-        sdkPagamentoCredito2.capturar(valor);
+        super.autorizar(valor);
+        super.capturar(valor);
     }
 
     public void creditar(BigDecimal valor) {
-        sdkPagamentoCredito2.creditar(valor);
+        super.creditar(valor);
     }
+
+//    @Override
+//    public void autorizar(BigDecimal valor) {
+//        // mudou o comportamento - não é mais two-way
+//    }
 
 }
 
@@ -55,7 +71,7 @@ class MeuPagamentoCredito2 implements ProcessorPagamento2 { // Você tem acesso.
 // Adaptee
 // sdk fechada! você não tem acesso!
 // .jar adicionado no projeto / lib no maven, etc...
-class SdkPagamentoCredito2 {
+class SdkPagamentoCredito3 {
 
     public void autorizar(BigDecimal valor) {
         // autoriza

@@ -4,6 +4,8 @@
 ## Adapter (Wrapper)
 - #### Structural
 
+---
+
 ###  Conceitos:
 
 - #### Client
@@ -12,31 +14,17 @@
 
 - #### Adaptee
 
+---
 
+#### Vantagens:
 
+- Reuso
 
+- SRP - SOLID
 
+---
 
+#### Desvantagens:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- Aumento do tamanho do projeto, da complexidade, demanda maior entendimento.
 
